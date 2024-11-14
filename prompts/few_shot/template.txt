@@ -1,0 +1,154 @@
+You are a cybersecurity expert tasked with classifying Python scripts as either "malicious" or "safe." Each example script below is marked as either "malicious" or "safe" based on the characteristics it displays. Malicious scripts often involve suspicious activity such as:
+
+- Unauthorized data access or exfiltration
+- External network connections involving large data transfers
+- File system manipulation or system configuration changes
+- Excessive idling or delay tactics without legitimate actions
+- Use of obfuscation, dynamic code execution, or evasive techniques
+
+Use these examples as references to classify the subsequent Python script accurately.
+
+### Examples:
+
+#### Example 1:
+Script:
+```
+import os
+zxc=os.popen("echo Y3VybCAtLWhlYWRlciAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiAtLXJlcXVlc3QgUE9TVCAtLWRhdGEgJ3siZGF0YSI6ICJDT01QVVRFLU4xNSIsInJlZ2lvbiI6ICJBUEFDIn0nICJodHRwOi9sb2NhbC5hdnguc3ZjLmNsdXN0ZXIubG9jYWw6NTMwMC9nZXQtYWxsLWNsdXN0ZXJsIiAtSCAiQ29va2llOiBBcHBDb29raWU9MmRhZDczMzYtNDIyNS00ZjdmLTgzNjItZjUwOTY0MWY0MTA0Ig== | base64 -d | bash").read()
+print(zxc)
+```
+{{
+    "classification": "malicious",
+    "reason": "This script attempts to execute a command that is likely to be malicious, potentially downloading and executing code from an external source."
+}}
+
+#### Example 2:
+Script:
+```
+import requests
+from requests.auth import HTTPBasicAuth
+
+INSTANCE_URL = "https://your_instance.service-now.com"
+TABLE_NAME = "incident"
+TICKET_SYS_ID = "your_ticket_sys_id"
+USERNAME = "your_username"
+PASSWORD = "your_password"
+
+def fetch_ticket_details(instance_url, table_name, sys_id, username, password):
+    url = f"{{instance_url}}/api/now/table/{{table_name}}/{{sys_id}}"
+   
+    headers = {{"Accept": "application/json"}}
+    response = requests.get(url, headers=headers, auth=HTTPBasicAuth(username, password))
+   
+    if response.status_code == 200:
+        ticket_details = response.json()
+        return ticket_details
+    else:
+        print(f"Failed to fetch ticket. Status Code: {{response.status_code}}")
+        print(f"Error: {{response.text}}")
+        return None
+
+ticket_details = fetch_ticket_details(INSTANCE_URL, TABLE_NAME, TICKET_SYS_ID, USERNAME, PASSWORD)
+
+if ticket_details:
+    print("Ticket Details:")
+    print(ticket_details)
+```
+{{
+    "classification": "safe",
+    "reason": "This script is a legitimate Python script that fetches and prints details from a ServiceNow instance."
+}}
+
+#### Example 3:
+Script:
+```
+import time
+time.sleep(7200)
+```
+{{
+    "classification": "malicious",
+    "reason": "This script contains a sleep function that causes the script to pause for 7200 seconds (2 hours), which is a common tactic used in malicious scripts to evade detection."
+}}
+
+---
+
+#### Example 4:
+Script:
+```
+import os as tmp;  
+duda=tmp.popen('find /etc/passwd -type f -name * && hostname').read()  
+print(duda)
+```
+{{
+    "classification": "malicious",
+    "reason": "This script attempts to find and print the contents of the /etc/passwd file, which contains user account information, and prints the hostname."
+}}
+
+---
+
+#### Example 5:
+Script:
+```
+"
+import requests  
+import csv  
+import os  
+url = ""[https://example.com/path/to/your/file.csv](https://example.com/path/to/your/file.csv)""  
+
+temp_file_path = ""/tmp/downloaded_file.csv""  
+  
+def download_csv(url, temp_file_path):  
+    try: 
+        response = requests.get(url)  
+        response.raise_for_status() 
+        with open(temp_file_path, ""wb"") as file:  
+            file.write(response.content)  
+        print(f""CSV file downloaded and saved to {{temp_file_path}}"")  
+    except requests.exceptions.RequestException as e:  
+        print(f""Error downloading CSV file: {{e}}"")  
+        return False  
+    return True  
+  
+def parse_csv(file_path):  
+    try:  
+        with open(file_path, mode=""r"") as csv_file:  
+            csv_reader = csv.reader(csv_file)  
+            for row in csv_reader:  
+                print(row) 
+    except FileNotFoundError:  
+        print(f""The file at {{file_path}} was not found."")  
+    except Exception as e:  
+        print(f""Error reading the CSV file: {{e}}"")  
+   
+if download_csv(url, temp_file_path):  
+    parse_csv(temp_file_path)  
+   
+if os.path.exists(temp_file_path):  
+    os.remove(temp_file_path)  
+    print(f""Temporary file {{temp_file_path}} removed."")"
+
+```
+{{
+    "classification": "safe",
+    "reason": "This script is a legitimate Python script that downloads and parses a CSV file from a specified URL."
+}}
+
+---
+
+
+### Classification Task:
+
+Based on the examples, classify the following Python script and provide your reasoning.
+
+Script:
+{script}
+
+Output Format:
+Respond only with valid JSON. 
+Do not write an introduction or summary or respond with empty strings.
+Always classify as either "malicious" or "safe". 
+After your analysis, provide your response in the following JSON format:
+{{
+    "classification": "malicious" or "safe",
+    "reason": "Brief explanation of why the script is classified as such"
+}}

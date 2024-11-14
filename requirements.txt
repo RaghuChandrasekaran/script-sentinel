@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-community
+langchain-openai
+openai
+pandas
+numpy
+scikit-learn
+plotly
+pyyaml
+tqdm 

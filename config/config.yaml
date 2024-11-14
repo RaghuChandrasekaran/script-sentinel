@@ -1,0 +1,26 @@
+models:
+  - "GPT-3.5"
+  - "o1-mini"
+  - "o1-preview"
+  - "GPT-4"
+  - "Claude Haiku"
+  - "Claude Sonnet"
+  - "Llama3"
+  - "Mistral"
+  - "Grok"
+
+prompting_techniques:
+  zero_shot:
+    name: "Zero Shot"
+    template: "zero_shot/template.txt"
+  few_shot:
+    name: "Few Shot"
+    template: "few_shot/template.txt"
+  chain_of_thought_zero_shot:
+    name: "Chain of Thought Zero Shot"
+    template: "cot_zero_shot/template.txt"
+  chain_of_thought_few_shot:
+    name: "Chain of Thought Few Shot"
+    template: "cot_few_shot/template.txt"
+
+openrouter_api_key: "OPENROUTER_API_KEY" 

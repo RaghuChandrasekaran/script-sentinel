@@ -93,9 +93,8 @@ def main():
 
     st.markdown("---")  # Add a separator
     st.subheader("Batch Evaluation")
-    st.write("Upload CSV for evaluation:")
     uploaded_file = st.file_uploader(
-        label="",
+        label="Upload CSV file for evaluation: ",
         type=['csv'],
         help="The CSV file should have two columns: 'Script' containing the code to analyze, and 'Output' with the expected classifications (safe or malicious)"
     )
@@ -120,26 +119,75 @@ def evaluate_models(csv_file):
         st.metric("F1 Score", f"{results['f1_score']:.3f}")
         st.metric("Response Time (95th percentile)", f"{results['response_time_95']:.2f} seconds")
         
-        # Create results table
+        # Create results table with script content and full response
         results_df = pd.DataFrame({
             'Actual': results['actual_values'],
-            'Predicted': results['predictions']
+            'Predicted': results['predictions'],
+            'Script': results['scripts'],
+            'Full Response': results['full_responses']  # New column
         })
         
         # Display results table with colored values
         st.subheader("Detailed Results")
         st.write("Results comparison (actual vs predicted):")
         
-        # Apply color formatting
         def color_results(val):
             color = 'green' if val == 'safe' else 'red'
             return f'<span style="color: {color}">{val}</span>'
+            
+        def create_expandable_content(content, preview_length=50, label=""):
+            preview = content[:preview_length] + '...' if len(content) > preview_length else content
+            return f'''
+                <details>
+                    <summary>{preview}</summary>
+                    <pre>{content}</pre>
+                </details>
+            '''
         
-        # Format the dataframe with colored values
+        # Format the dataframe with colored values and expandable content
         styled_results = results_df.style.format({
             'Actual': lambda x: color_results(x),
-            'Predicted': lambda x: color_results(x)
+            'Predicted': lambda x: color_results(x),
+            'Script': lambda x: create_expandable_content(x, 50, "Script"),
+            'Full Response': lambda x: create_expandable_content(x, 50, "Response")
         })
+        
+        # Add custom CSS to style the expandable content
+        st.markdown("""
+            <style>
+                details {
+                    border: 1px solid #aaa;
+                    border-radius: 4px;
+                    padding: 0.5em 0.5em 0;
+                    margin-bottom: 5px;
+                }
+                
+                summary {
+                    font-weight: bold;
+                    margin: -0.5em -0.5em 0;
+                    padding: 0.5em;
+                    cursor: pointer;
+                }
+                
+                details[open] {
+                    padding: 0.5em;
+                }
+                
+                details[open] summary {
+                    border-bottom: 1px solid #aaa;
+                    margin-bottom: 0.5em;
+                }
+                
+                details pre {
+                    white-space: pre-wrap;
+                    word-wrap: break-word;
+                    margin: 0;
+                    padding: 0.5em;
+                    background-color: #f5f5f5;
+                    border-radius: 4px;
+                }
+            </style>
+        """, unsafe_allow_html=True)
         
         st.write(styled_results.to_html(escape=False), unsafe_allow_html=True)
     

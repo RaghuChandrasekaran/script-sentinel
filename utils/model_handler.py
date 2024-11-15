@@ -16,7 +16,6 @@ class ModelHandler:
         self.api_key = os.getenv('OPENROUTER_API_KEY', self.config.get('openrouter_api_key'))
     
     def analyze_script(self, script, model, technique):
-        start_time = time.time()
         
         # Create a new client with the selected model
         self.client = ChatOpenAI(
@@ -39,8 +38,10 @@ class ModelHandler:
         
         
         try:
-            # Direct LLM call with the prompt template
-            response = self.client(prompt_template.format(script=script))
+            start_time = time.time()
+            response = self.client.invoke(prompt_template.format(script=script))
+            end_time = time.time()
+            print(f"\n Model: {self._get_model_identifier(model)} | Response: {response.content}")
             result = self._parse_response(response.content)
             full_response = response.content
         except Exception as e:
@@ -48,7 +49,6 @@ class ModelHandler:
             result = "Error during analysis"
             full_response = str(e)
         
-        end_time = time.time()
         return {
             'result': result,
             'response': full_response,
@@ -60,20 +60,31 @@ class ModelHandler:
         model_map = {
             "o1-mini": "openai/o1-mini",
             "o1-preview": "openai/o1-preview",
-            "GPT-4": "openai/gpt-4-turbo-preview",
-            "GPT-3.5": "openai/gpt-3.5-turbo",
+            "GPT-4o": "openai/gpt-4o",
+            "GPT-4o-mini": "openai/gpt-4o-mini",
+            "GPT-4": "openai/gpt-4-turbo",  
+            "GPT-3.5": "openai/gpt-3.5-turbo-0125",
             "Claude Haiku": "anthropic/claude-3-haiku",
             "Claude Sonnet": "anthropic/claude-3-sonnet",
-            "Llama3": "meta-llama/llama-3.1-70b-instruct",
-            "Mistral": "mistralai/mistral-nemo",
-            "Grok": "x-ai/grok-beta"
+            "Google Gemini Flash": "google/gemini-flash-1.5-8b",
+            "Google Gemma 2": "google/gemma-2-9b-it:free",
+            "Google Gemini Pro": "google/gemini-pro-1.5",
+            "Llama 3.2": "meta-llama/llama-3.2-3b-instruct:free",
+            "Mistral Nemo": "mistralai/mistral-nemo",
+            "Grok 2": "x-ai/grok-2"
         }
         return model_map.get(model_name) 
     
     def _parse_response(self, response):
         try:
             # Try to parse the response as JSON
-            response_dict = json.loads(response)
+            # Remove ```json and ``` if present
+            cleaned_response = response.strip()
+            if cleaned_response.startswith('```json'):
+                cleaned_response = cleaned_response[7:]
+            if cleaned_response.endswith('```'):
+                cleaned_response = cleaned_response[:-3]
+            response_dict = json.loads(cleaned_response.strip())
             return response_dict['classification'].strip().lower()
         except json.JSONDecodeError:
             # Raise exception if response is not valid JSON

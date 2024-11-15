@@ -2,12 +2,17 @@ models:
   - "GPT-3.5"
   - "o1-mini"
   - "o1-preview"
+  - "GPT-4o"
+  - "GPT-4o-mini"
   - "GPT-4"
+  - "Google Gemini Flash"
+  - "Google Gemma 2"
+  - "Google Gemini Pro"
   - "Claude Haiku"
   - "Claude Sonnet"
-  - "Llama3"
-  - "Mistral"
-  - "Grok"
+  - "Llama 3.2"
+  - "Mistral Nemo"
+  - "Grok 2"
 
 prompting_techniques:
   zero_shot:
@@ -23,4 +28,4 @@ prompting_techniques:
     name: "Chain of Thought Few Shot"
     template: "cot_few_shot/template.txt"
 
-openrouter_api_key: "OPENROUTER_API_KEY" 
+openrouter_api_key: "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" 

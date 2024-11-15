@@ -1,3 +1,13 @@
+IMPORTANT: Output format should be valid JSON. Respond only with valid JSON.
+IMPORTANT: Do not write an introduction or summary or respond with empty strings.
+IMPORTANT: Always classify as either "malicious" or "safe". 
+IMPORTANT: Do not include ```json or ``` in your response.
+IMPORTANT: After your analysis, provide your response in the following JSON format:
+{{
+    "classification": "malicious" or "safe",
+    "reason": "Brief explanation of why the script is classified as such"
+}}
+
 You are a cybersecurity expert tasked with classifying Python scripts as either "malicious" or "safe." Each example script below is marked as either "malicious" or "safe" based on the characteristics it displays. Malicious scripts often involve suspicious activity such as:
 
 - Unauthorized data access or exfiltration
@@ -142,13 +152,3 @@ Based on the examples, classify the following Python script and provide your rea
 
 Script:
 {script}
-
-Output Format:
-Respond only with valid JSON. 
-Do not write an introduction or summary or respond with empty strings.
-Always classify as either "malicious" or "safe". 
-After your analysis, provide your response in the following JSON format:
-{{
-    "classification": "malicious" or "safe",
-    "reason": "Brief explanation of why the script is classified as such"
-}}

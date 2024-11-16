@@ -28,4 +28,4 @@ prompting_techniques:
     name: "Chain of Thought Few Shot"
     template: "cot_few_shot/template.txt"
 
-openrouter_api_key: "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" 
+openrouter_api_key: ${OPENROUTER_API_KEY}

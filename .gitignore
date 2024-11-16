@@ -31,3 +31,5 @@ yarn-error.log*
 # OS specific
 .DS_Store
 Thumbs.db 
+
+__pycache__/*

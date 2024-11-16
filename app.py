@@ -99,10 +99,61 @@ def main():
         help="The CSV file should have two columns: 'Script' containing the code to analyze, and 'Output' with the expected classifications (safe or malicious)"
     )
     
+    eval_mode = st.radio(
+        "Evaluation Mode:",
+        ["Single Model/Technique", "All Models and Techniques"]
+    )
+    
     if st.button("Evaluate", disabled=not uploaded_file):
         if uploaded_file:
             with st.spinner("Processing CSV file..."):
-                evaluate_models(uploaded_file)
+                if eval_mode == "Single Model/Technique":
+                    evaluate_models(uploaded_file)
+                else:
+                    evaluate_all_models_techniques(uploaded_file)
+
+def evaluate_all_models_techniques(csv_file):
+    try:
+        df = pd.read_csv(csv_file)
+        
+        # For each prompting technique
+        for technique in config['prompting_techniques'].values():
+            technique_name = technique['name']
+            st.subheader(f"Results for {technique_name}")
+            
+            # Create a list to store results for each model
+            technique_results = []
+            
+            # Evaluate each model with this technique
+            for model in config['models']:
+                try:
+                    results = st.session_state.evaluator.evaluate(
+                        df,
+                        st.session_state.model_handler,
+                        model,
+                        technique_name
+                    )
+                    
+                    technique_results.append({
+                        'Model': model,
+                        'F1 Score': f"{results['f1_score']:.3f}",
+                        'Response Time (95th percentile)': f"{results['response_time_95']:.2f}s"
+                    })
+                except Exception as model_error:
+                    st.error(f"Error evaluating model {model}: {str(model_error)}")
+                    technique_results.append({
+                        'Model': model,
+                        'F1 Score': 'Error',
+                        'Response Time (95th percentile)': 'Error'
+                    })
+            
+            # Create and display results table for this technique
+            results_df = pd.DataFrame(technique_results)
+            st.table(results_df.set_index('Model'))
+            st.markdown("---")
+    
+    except Exception as e:
+        st.error(f"An error occurred during evaluation: {str(e)}")
 
 def evaluate_models(csv_file):
     try:

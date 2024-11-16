@@ -16,14 +16,12 @@ You are a cybersecurity expert analyzing Python scripts to determine whether the
 4. Obfuscation and Evasion: Identify any use of encoded or obfuscated commands that hide the script's true purpose.
 5. Non-functional Behavior: Mark scripts that appear to stall indefinitely (e.g., by sleeping) without performing other actions as suspicious.
 
-### Chain of Thought:
+Think step-by-step and analyze the script in the following manner:
 1. Unauthorized Data Exfiltration: [Model's thought process]
 2. System Manipulation or Surveillance: [Model's thought process]
 3. Network Communication: [Model's thought process]
 4. Obfuscation and Evasion: [Model's thought process]
 5. Non-functional Behavior: [Model's thought process]
-
-Final Classification: "malicious" or "safe"
 
 For the following script, apply the above criteria step-by-step to classify it as "Malicious" or "Safe." Clearly explain your reasoning.
 

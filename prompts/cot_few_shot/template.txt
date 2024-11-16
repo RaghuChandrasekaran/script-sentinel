@@ -2,6 +2,7 @@ IMPORTANT: Output format should be valid JSON. Respond only with valid JSON.
 IMPORTANT: Do not write an introduction or summary or respond with empty strings.
 IMPORTANT: Always classify as either "malicious" or "safe". 
 IMPORTANT: Do not include ```json or ``` in your response.
+IMPORTANT: Do not include the Chain of Thought section in your response.
 IMPORTANT: After your analysis, provide your response in the following JSON format:
 {{
     "classification": "malicious" or "safe",
@@ -16,7 +17,7 @@ You are a cybersecurity analyst tasked with classifying Python scripts as either
 4. Obfuscation and Evasion: Check for hidden commands or encoded execution.
 5. Non-functional Behavior: Mark scripts that only stall or idle as suspicious.
 
-For each example, follow these reasoning steps to determine whether the script is "Malicious" or "Safe." Apply this analysis to the new script, then provide a final classification with reasoning.
+For each example, follow these reasoning steps to determine whether the script is "Malicious" or "Safe." Apply this analysis to the new script, then provide a final classification in JSON format with reasoning.
 
 ---
 
@@ -109,7 +110,13 @@ Chain of Thought:
 
 ---
 
-### Classification Task:
+Think step-by-step and analyze the script in the following manner. Use the examples above as a guide:
+
+1. Unauthorized Data Exfiltration: [Model's thought process]
+2. System Manipulation or Surveillance: [Model's thought process]
+3. Network Communication: [Model's thought process]
+4. Obfuscation and Evasion: [Model's thought process]
+5. Non-functional Behavior: [Model's thought process]
 
 Using the reasoning steps above, classify the following Python script as either "malicious" or "safe".
 
@@ -117,12 +124,3 @@ Script:
 ```
 {script}
 ```
-
-### Chain of Thought:
-1. Unauthorized Data Exfiltration: [Model's thought process]
-2. System Manipulation or Surveillance: [Model's thought process]
-3. Network Communication: [Model's thought process]
-4. Obfuscation and Evasion: [Model's thought process]
-5. Non-functional Behavior: [Model's thought process]
-
-Final Classification: "malicious" or "safe"

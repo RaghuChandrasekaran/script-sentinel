@@ -137,7 +137,8 @@ def evaluate_all_models_techniques(csv_file):
                     technique_results.append({
                         'Model': model,
                         'F1 Score': f"{results['f1_score']:.3f}",
-                        'Response Time (95th percentile)': f"{results['response_time_95']:.2f}s"
+                        'Response Time (95th percentile)': f"{results['response_time_95']:.2f}s",
+                        'Scripts Analyzed': len(results['scripts'])
                     })
                 except Exception as model_error:
                     st.error(f"Error evaluating model {model}: {str(model_error)}")

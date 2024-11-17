@@ -69,7 +69,7 @@ class ModelHandler:
             "Google Gemini Flash": "google/gemini-flash-1.5-8b",
             "Google Gemma 2": "google/gemma-2-9b-it:free",
             "Google Gemini Pro": "google/gemini-pro-1.5",
-            "Llama 3.2": "meta-llama/llama-3.2-3b-instruct:free",
+            "Llama 3.2": "meta-llama/llama-3.2-3b-instruct",
             "Mistral Nemo": "mistralai/mistral-nemo",
             "Grok 2": "x-ai/grok-2"
         }
@@ -84,7 +84,13 @@ class ModelHandler:
                 cleaned_response = cleaned_response[7:]
             if cleaned_response.endswith('```'):
                 cleaned_response = cleaned_response[:-3]
-            response_dict = json.loads(cleaned_response.strip())
+            
+            # Add closing brace if missing
+            cleaned_response = cleaned_response.strip()
+            if not cleaned_response.endswith('}'):
+                cleaned_response += '}'
+                
+            response_dict = json.loads(cleaned_response)
             return response_dict['classification'].strip().lower()
         except json.JSONDecodeError:
             # Raise exception if response is not valid JSON
